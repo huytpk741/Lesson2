@@ -1,5 +1,5 @@
 <?php
-    define("URL", "http://localhost/test/");
+    define("URL", "http://localhost/Lesson2/");
 	define("VIEW", "views/");
     define("PUBLIC_PATH", URL . "public/");
 	define("CSS", URL . "public/css/");
