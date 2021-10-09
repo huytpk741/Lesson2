@@ -156,10 +156,10 @@
                 mysqli_query($this->connection, $sql);
             } else {
                 if ($category_id != $parent) {
-                    if ($this->check_children($category_id, $parent) == "true") {
+                    // if ($this->check_children($category_id, $parent) == true) {
                         $sql = "UPDATE categories SET name = '".$name."', parent = '".$parent."' WHERE id = '" . $category_id . "'";
                         mysqli_query($this->connection, $sql);
-                    }
+                    // }
                 }
             }
         }
@@ -172,17 +172,17 @@
 
             // echo '<pre>'; print_r($c); echo '</pre>';
 
-            if($c->parent == "Null" || $c->parent == "NULL" || is_null($c->parent) || $c->parent == "" || $c->parent === NULL) {
+            if($c->parent == "Null" || $c->parent == "NULL" || is_null($c->parent) || $c->parent == NULL) {
                 echo "true";
-                return "true";
+                return true;
             } else if($c->parent == $p) {
                 echo "false";
-                return "false";
+                return false;
             } else if($c->parent != $p) {
                 $this->check_children($p, $c->parent);
             } else {
                 echo "true";
-                return "true";
+                return true;
             }
             
         }
