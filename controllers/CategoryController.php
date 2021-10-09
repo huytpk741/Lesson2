@@ -65,6 +65,19 @@ class CategoryController extends Controller
         return $html;
     }
 
+    public function viewsubopt($subs, $subc)
+    {
+        $new_subc = $subc ."--";
+        $html = '';
+        foreach ($subs as $sub) {
+            $html  .= '<option value="'.$sub["id"] .'">'.$subc.$sub["name"].'</option>';
+            if (!empty($sub['subs'])) {
+                $html .= $this->viewsubopt($sub['subs'], $new_subc);
+            }
+        }
+        return $html;
+    }
+
     public function detail($id)
     {
         $category = $this->load_model("CategoryModel")->get_detail($id);

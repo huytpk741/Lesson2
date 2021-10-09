@@ -78,12 +78,15 @@
                         <label for="parent-category">Parent category</label>
                         <select class="form-control" id="parent-category" name="parent">
                             <option>Null</option>
-                            <?php foreach ($all_categories as $category) { ?>
-                                <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                            <?php foreach ($categories as $category) { ?>
+                                <option value="<?= $category["id"]; ?>"><?= $category["name"]; ?></option>
+                                <?php if (!empty($category['subs'])) { ?>
+                                    <?= $this->viewsubopt($category['subs'], "└-"); ?>
+                                <?php } ?>
                             <?php } ?>
                         </select>
                     </div>
-                    
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -145,10 +148,10 @@
                         <label for="parent-category">Parent category</label>
                         <select name="parent" class="form-control" id="parent-category">
                             <option>Null</option>
-                            
+
                         </select>
                     </div>
-                    
+
                 </form>
             </div>
             <div class="modal-footer">
