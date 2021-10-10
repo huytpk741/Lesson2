@@ -2,28 +2,6 @@
 
 class CategoryController extends Controller
 {
-    // public function all($page = 1)
-    // {
-    //     $categories = $this->load_model("CategoryModel")->get_per_page($page);
-    //     $total = $this->load_model("CategoryModel")->count();
-
-    //     if(($page - 1) == 0) {
-    //         $prev = ceil($total/10);
-    //     } else {
-    //         $prev = $page - 1;
-    //     }
-
-    //     if(($page+1) > ceil($total/10)){ 
-    //         $next = 1;
-    //     } else {
-    //         $next = $page + 1;
-    //     }
-
-    //     require_once VIEW . "layout/header.php";
-    //     require_once VIEW . 'categories/all.php';
-    //     require_once VIEW . "layout/footer.php";
-    // }
-
     public function all()
     {
         $categories = $this->load_model("CategoryModel")->get_per_page();
@@ -133,7 +111,5 @@ class CategoryController extends Controller
     public function checkchildren($parent, $child)
     {
         $response = $this->load_model("CategoryModel")->check_children($parent, $child);
-        
-        
     }
 }
