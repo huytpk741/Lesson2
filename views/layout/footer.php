@@ -55,12 +55,6 @@
 
                         for (const cate of categories) {
                             if (parseInt(cate.id) != parseInt(id)) {
-                                // if (check_children(id, cate.id) == true) {
-                                    // var opt = document.createElement('option');
-                                    // opt.value = cate.id;
-                                    // opt.innerHTML = cate.name;
-                                    // select.append(opt);
-                                // }
                                 $.ajax({
                                     type: 'GET',
                                     dataType: 'text',
@@ -70,7 +64,6 @@
                                     },
                                     url: "<?= URL; ?>category/checkchildren/" + id + "/" + cate.id,
                                     success: function(data) {
-                                        //  console.log(data);
                                         if (data == "true") {
                                             var opt = document.createElement('option');
                                             opt.value = cate.id;
@@ -113,7 +106,7 @@
                 $('#category-table').find('tr').each(function() {
                     var $table = $(this);
 
-                    if (!($table.find('td').val("Category Name").text().search(patt) >= 0)) {
+                    if (!($table.find('td').text().search(patt) >= 0)) {
                         $table.not('.t_head').hide();
                     }
                     if (($table.find('td').text().search(patt) >= 0)) {
@@ -132,14 +125,11 @@
 
                 var numPages = rowsTotal / rowsShown;
 
-                // $('#pagination').append('<li class="page-item"><button onclick="prevButtons()" class="page-link prev-btn">Previous</button></li>');
 
                 for (i = 0; i < numPages; i++) {
                     var pageNum = i + 1;
                     $('#pagination').append('<li class="page-item"><a class="page-link" href="#" rel="' + i + '">' + pageNum + '</a> </li>');
                 }
-
-                // $('#pagination').append('<li class="page-item"><button onclick="nextButtons()" class="page-link next-btn">Next</button></li>');
 
                 $('#category-table tbody tr').hide();
                 $('#category-table tbody tr').slice(0, rowsShown).show();
@@ -159,38 +149,6 @@
 
 
             });
-
-            function prevButtons() {
-                $('#pagination a').removeClass('active');
-                var currPage = $('#pagination .active').attr('rel');
-                var startItem = (currPage - 1) * rowsShown;
-                var endItem = startItem + rowsShown;
-
-                if (endItem < 10) {
-                    $('#pagination .next-btn').attr("disabled", "disabled");
-                }
-
-                $('#category-table tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
-                css('display', 'table-row').animate({
-                    opacity: 1
-                }, 300);
-            }
-
-            function nextButtons() {
-                $('#pagination a').removeClass('active');
-                var currPage = $('#pagination a.active').attr('rel');
-                var startItem = (currPage + 1) * rowsShown;
-                var endItem = startItem + rowsShown;
-
-                if (endItem > rowsTotal) {
-                    $('#pagination .next-btn').attr("disabled", "disabled");
-                }
-
-                $('#category-table tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
-                css('display', 'table-row').animate({
-                    opacity: 1
-                }, 300);
-            }
         </script>
         </body>
 

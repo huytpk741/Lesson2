@@ -81,26 +81,6 @@
             return $count;
         }
 
-        // public function get_per_page($page)
-        // { 
-        //     $start_from = ($page-1) * 10;
-
-        //     $sql = "SELECT * FROM categories WHERE parent is NULL LIMIT $start_from, 10 ";
-        //     $result = mysqli_query($this->connection, $sql);
-
-        //     $data = array();
-        //     while ($row = mysqli_fetch_object($result)) {
-        //         // array_push($data, $row);
-        //         $data[] = array(
-        //             'id' => $row['id'],
-        //             'category' => $row['name'],
-        //             'parent' => $row['parent'],
-        //             'subcategory' => sub_categories($row['id']),
-        //         );
-        //     }
-        //     return $data;
-        // }
-
         public function get_per_page()
         { 
             $sql = "SELECT * FROM categories WHERE parent is NULL";
@@ -156,10 +136,10 @@
                 mysqli_query($this->connection, $sql);
             } else {
                 if ($category_id != $parent) {
-                    // if ($this->check_children($category_id, $parent) == true) {
+                    if ($this->check_children($category_id, $parent) == true) {
                         $sql = "UPDATE categories SET name = '".$name."', parent = '".$parent."' WHERE id = '" . $category_id . "'";
                         mysqli_query($this->connection, $sql);
-                    // }
+                    }
                 }
             }
         }
@@ -170,8 +150,6 @@
             $result = mysqli_query($this->connection, $sql);
             $c = mysqli_fetch_object($result);
 
-            // echo '<pre>'; print_r($c); echo '</pre>';
-
             if($c->parent == "Null" || $c->parent == "NULL" || is_null($c->parent) || $c->parent == NULL) {
                 echo "true";
                 return true;
@@ -179,7 +157,7 @@
                 echo "false";
                 return false;
             } else if($c->parent != $p) {
-                $this->check_children($p, $c->parent);
+                return $this->check_children($p, $c->parent);
             } else {
                 echo "true";
                 return true;
